@@ -1,0 +1,59 @@
+<html>
+ <head>
+   <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+   <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
+   <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+ </head>
+ <body>
+   <a-scene>
+   	<script>
+        AFRAME.registerComponent('src-back', {
+         schema: {
+          to: {default: 'coin.dae'}
+          },
+
+        init: function () {
+         var data = this.data;
+         this.el.addEventListener('mouseleave', function () {
+         this.setAttribute('src', data.to);
+        });
+      }
+    });
+       AFRAME.registerComponent('src-switch', {
+         schema: {
+          to: {default: 'coin2.dae'}
+           
+          },
+
+        init: function () {
+         var data = this.data;
+         this.el.addEventListener('mouseenter', function () {
+           var node = this;
+           setTimeout(function() {
+            node.setAttribute('src',data.to);
+         }, 5000)
+        });
+
+      },
+         
+    }); 
+        
+        
+      </script> 
+    <!-- <a-assets>
+    <a-asset-item id="coin" src="coin.dae"></a-asset-item>
+    <a-asset-item id="coin2" src="coin2.dae"></a-asset-item>
+  </a-assets> -->
+
+  <a-collada-model src="coin.dae" position="1 1.5 -3" scale="0.6 0.6 0.6" rotation = "0 30 75" shadow
+  animation__rotation="property: rotation; dir: single; dur:1000; easing: easeInSine; loop: true; to: 0 360 405" src-switch="to: coin2.dae" src-back="to: coin.dae">
+  	
+  </a-collada-model>
+  <a-plane rotation="-90 0 0" width="10" height="10" color="red"> </a-plane>
+  <a-entity environment="preset: goldmine; dressingAmount: 400"></a-entity>
+  <a-camera position = "0 1 0">
+     <a-cursor></a-cursor>
+   </a-camera>
+   </a-scene>
+ </body>
+</html>
